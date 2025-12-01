@@ -51,7 +51,7 @@ Current Section Being Written: ${currentSectionName}
 Student's Writing for Current Section:
 ${text || '(No text yet)'}
 
-Please evaluate the student's writing for the current section. Provide constructive feedback and suggestions. Each story structure has multiple sections. Only when you think the writing for the current section is good enough, output "done" on a new line at the end of your response. Do not output "done" in the middle of your response, only at the very end when you think they can move to the next section.`
+Please evaluate the student's writing for the current section. Provide constructive feedback and suggestions. Each story structure has multiple sections. output done only at the very end when you think they can move to the next section.`
 
     const url = `${DIFY_BASE_URL}/chat-messages`
     const headers: Record<string, string> = {
