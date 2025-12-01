@@ -51,7 +51,7 @@ Current Section Being Written: ${currentSectionName}
 Student's Writing for Current Section:
 ${text || '(No text yet)'}
 
-Please evaluate the student's writing for the current section. Provide constructive feedback and suggestions. Each story structure has multiple sections. output done only at the very end when you think they can move to the next section.`
+Please evaluate the student's writing for the current section. Provide constructive feedback and suggestions. Each story structure has multiple sections. output done only at the very end when you think they can move to the next section,如果学生只是输入一些乱码，不要输出done!严格遵守.`
 
     const url = `${DIFY_BASE_URL}/chat-messages`
     const headers: Record<string, string> = {
