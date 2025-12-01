@@ -60,7 +60,7 @@ EVALUATION RULES:
    - Text has no relation to the book or section at all
    - Text is completely empty or just placeholder text
 
-Remember: Be encouraging and supportive. Approve reasonable writing that shows effort, even if brief. Only say "you can move to the next part" when the writing is good enough for its purpose.`
+Remember: Be encouraging and supportive. Approve reasonable writing that shows effort, even if brief. Only say "you can move to the next part" when the writing is good enough for its purpose.如果有乱码组成或者显然没有逻辑，一定不要说you can move to the next part这句话`
 
     // Dify API configuration
     const url = `${DIFY_BASE_URL}/chat-messages`
