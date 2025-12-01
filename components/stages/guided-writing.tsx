@@ -172,8 +172,8 @@ export default function GuidedWriting({ language, storyState, onStoryWrite, onBa
     }
     
     // 测试模式下取消字数限制
-    if (!isTestMode && wordCount < 50) {
-      toast.error("Your story needs at least 50 words")
+    if (!isTestMode && wordCount < 20) {
+      toast.error("Your story needs at least 20 words")
       return
     }
     
@@ -308,10 +308,10 @@ export default function GuidedWriting({ language, storyState, onStoryWrite, onBa
                         <span className="text-2xl">🎉</span>
                         Finish Story (Test Mode)
                       </>
-                    ) : wordCount < 50 ? (
+                    ) : wordCount < 20 ? (
                       <>
                         <span>📝</span>
-                        Finish Story ({wordCount}/50 words)
+                        Finish Story ({wordCount}/20 words)
                       </>
                     ) : sections.every((_, index) => sectionDone[index]) ? (
                       <>
