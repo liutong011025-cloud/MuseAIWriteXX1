@@ -109,7 +109,7 @@ export default function LetterGame({
             
             if (canMove) {
               setCompletedSections(prev => new Set([...prev, currentSection]))
-              toast.success("Great job! 你可以进行下一部分描写了！✨")
+              toast.success("Great job! You can move to the next part！✨")
               
               // 自动跳转到下一部分（延迟一下让用户看到提示）
               if (currentSection < LETTER_SECTIONS.length - 1) {
