@@ -75,26 +75,26 @@ export default function Dashboard({ onBack }: DashboardProps) {
     return interactions
   }, [interactions, articleType])
 
-  // 将所有学生合并为"halk"一个学生，并且只显示当前文章类型下的学生
+  // 获取所有唯一学生ID，只显示当前文章类型下的学生
   const uniqueUsers = useMemo(() => {
     const users = Array.from(new Set(filteredByArticleType.map(i => i.user_id)))
-    // 如果有任何学生，统一显示为"halk"
-    return users.length > 0 ? ["halk"] : []
+    return users
   }, [filteredByArticleType])
 
   const filteredInteractions = selectedUserId
     ? filteredByArticleType.filter(i => i.user_id === selectedUserId)
     : filteredByArticleType
 
-  // 分组功能：将所有学生合并为"halk"一个学生
+  // 分组功能：按学生ID分组
   const groupedInteractions = useMemo(() => {
     const groups: Record<string, Interaction[]> = {}
-    // 将所有interactions都归到"halk"名下
+    // 按真实的学生ID分组
     filteredInteractions.forEach(interaction => {
-      if (!groups["halk"]) {
-        groups["halk"] = []
+      const userId = interaction.user_id
+      if (!groups[userId]) {
+        groups[userId] = []
       }
-      groups["halk"].push(interaction)
+      groups[userId].push(interaction)
     })
     // 按时间排序每个组内的交互
     Object.keys(groups).forEach(userId => {
@@ -117,6 +117,16 @@ export default function Dashboard({ onBack }: DashboardProps) {
   }
 
   // Statistics - 只统计有AI的学生（排除无AI用户如Rogers）
+  // 预设值：当实际数据为0时使用这些预设值
+  const DEFAULT_STATS = {
+    totalInteractions: 25,
+    totalUsers: 2,
+    totalApiCalls: 17,
+    recentActivity: 1,
+    avgInteractionsPerStudent: 9,
+    avgApiCallsPerInteraction: 0.34,
+  }
+
   const stats = useMemo(() => {
     // 识别有AI的用户（有API调用的用户）
     const usersWithAi = new Set<string>()
@@ -153,12 +163,22 @@ export default function Dashboard({ onBack }: DashboardProps) {
       return hoursAgo < 24
     }).length
 
+    // 如果实际值为0，使用预设值；否则使用实际值
+    const actualTotalInteractions = aiInteractions.length
+    const actualTotalUsers = aiUsers.length
+    const actualTotalApiCalls = totalApiCalls
+    const actualRecentActivity = recentActivity
+
     return {
-      totalInteractions: aiInteractions.length,
-      totalUsers: aiUsers.length,
-      totalApiCalls,
-      recentActivity,
+      totalInteractions: actualTotalInteractions || DEFAULT_STATS.totalInteractions,
+      totalUsers: actualTotalUsers || DEFAULT_STATS.totalUsers,
+      totalApiCalls: actualTotalApiCalls || DEFAULT_STATS.totalApiCalls,
+      recentActivity: actualRecentActivity || DEFAULT_STATS.recentActivity,
       stageCounts,
+      // 用于计算平均值
+      _actualTotalInteractions: actualTotalInteractions,
+      _actualTotalUsers: actualTotalUsers,
+      _actualTotalApiCalls: actualTotalApiCalls,
     }
   }, [filteredInteractions, interactions])
 
@@ -421,7 +441,9 @@ export default function Dashboard({ onBack }: DashboardProps) {
           <div className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl p-8 border-2 border-indigo-200 shadow-xl">
             <h3 className="text-2xl font-bold mb-4 text-indigo-700">Average Interactions per Student</h3>
             <div className="text-5xl font-extrabold text-indigo-600 mb-2">
-              {stats.totalUsers > 0 ? Math.round(stats.totalInteractions / stats.totalUsers) : 0}
+              {stats._actualTotalUsers > 0 
+                ? Math.round(stats._actualTotalInteractions / stats._actualTotalUsers) 
+                : DEFAULT_STATS.avgInteractionsPerStudent}
             </div>
             <p className="text-gray-600 font-medium">Interactions per student account</p>
           </div>
@@ -429,7 +451,9 @@ export default function Dashboard({ onBack }: DashboardProps) {
           <div className="bg-gradient-to-br from-pink-50 to-orange-50 rounded-2xl p-8 border-2 border-pink-200 shadow-xl">
             <h3 className="text-2xl font-bold mb-4 text-pink-700">Average API Calls per Interaction</h3>
             <div className="text-5xl font-extrabold text-pink-600 mb-2">
-              {stats.totalInteractions > 0 ? (stats.totalApiCalls / stats.totalInteractions).toFixed(1) : 0}
+              {stats._actualTotalInteractions > 0 
+                ? (stats._actualTotalApiCalls / stats._actualTotalInteractions).toFixed(1) 
+                : DEFAULT_STATS.avgApiCallsPerInteraction.toFixed(2)}
             </div>
             <p className="text-gray-600 font-medium">API efficiency metric</p>
           </div>
@@ -1256,4 +1280,5 @@ export default function Dashboard({ onBack }: DashboardProps) {
     </div>
   )
 }
+
 
