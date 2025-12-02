@@ -364,7 +364,7 @@ export default function LetterGame({
                   {canMoveNext && (
                     <div className="mt-3 flex items-center gap-2 text-green-600 font-bold">
                       <CheckCircle2 className="w-5 h-5" />
-                      <span>你可以进行下一部分描写了！🎉</span>
+                      <span>You can move to the next part！🎉</span>
                     </div>
                   )}
                 </div>
