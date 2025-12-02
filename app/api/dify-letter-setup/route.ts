@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
 - To: "${recipient}"
 - Reason: "${occasion}"
 
-Please provide a brief, kid-friendly guidance (2-3 sentences max) on how to write this letter. Use simple words and be encouraging! Include emojis to make it fun! ✨`
+Please provide a brief, kid-friendly guidance (2-3 sentences max) on how to write this letter. Use simple words and be encouraging! Include emojis to make it fun! 这次结尾也不要回复六个单词✨`
 
     const url = `${DIFY_BASE_URL}/chat-messages`
     const headers: Record<string, string> = {
