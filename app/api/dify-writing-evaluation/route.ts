@@ -51,7 +51,7 @@ Current Section Being Written: ${currentSectionName}
 Student's Writing for Current Section:
 ${text || '(No text yet)'}
 
-Please evaluate the student's writing for the current section. Provide constructive feedback and suggestions. Each story structure has multiple sections,最后不要输出六个单词了，检查学生的文章，如果学生只是输入一些乱码，不要输出done!只有学生写的够完整够好或者字数大于10，在回复最后另起一段回复一个“done”，严格遵守.`
+Please evaluate the student's writing for the current section. Provide constructive feedback and suggestions. Each story structure has multiple sections,最后不要输出六个单词了，检查学生的文章，如果学生只是输入一些乱码，千万不要输出done!只有学生写的够完整够好或者字数大于10才在回复最后另起一段回复一个“done”，严格遵守输出done的条件，如果只是乱码不要输出“done”字符.`
 
     const url = `${DIFY_BASE_URL}/chat-messages`
     const headers: Record<string, string> = {
