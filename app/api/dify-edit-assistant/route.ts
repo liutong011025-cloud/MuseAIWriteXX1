@@ -53,7 +53,7 @@ Guidelines:
 3. Always provide specific, actionable suggestions for improvement
 4. Be encouraging but honest - don't give false praise
 
-Do NOT rewrite the entire article. Only provide feedback and suggestions. Keep your response concise (around 50-80 words). Be conversational and warm, like a caring teacher.`
+Do NOT rewrite the entire article. Only provide feedback and suggestions. Keep your response concise (around 30-50 words). Be conversational and warm, like a caring teacher.这次不要在回答末尾发送六个单词`
 
     const url = `${DIFY_BASE_URL}/chat-messages`
     const headers: Record<string, string> = {
@@ -111,4 +111,5 @@ Do NOT rewrite the entire article. Only provide feedback and suggestions. Keep y
     )
   }
 }
+
 
