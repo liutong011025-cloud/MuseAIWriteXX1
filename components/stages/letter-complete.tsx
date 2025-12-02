@@ -213,18 +213,48 @@ Created with MuseAIWrite
                     fontFamily: 'Patrick Hand, Kalam, cursive',
                   }}
                 >
-                  {letter.split('').map((char, index) => (
-                    <span
-                      key={index}
-                      className="animate-handwriting"
-                      style={{
-                        animationDelay: `${index * 0.08}s`,
-                        display: 'inline-block',
-                      }}
-                    >
-                      {char === '\n' ? <br /> : char}
-                    </span>
-                  ))}
+                  {sections && sections.length > 0 ? (
+                    // 如果有 sections，按标准信件格式显示，每部分换行
+                    sections.map((sectionText, index) => {
+                      const sectionNames = ["Greeting", "Opening", "Body", "Closing", "Signature"]
+                      const sectionName = sectionNames[index] || ""
+                      return (
+                        <div key={index} className="mb-4">
+                          {sectionText && sectionText.trim() && (
+                            <>
+                              {sectionText.split('').map((char, charIndex) => (
+                                <span
+                                  key={charIndex}
+                                  className="animate-handwriting"
+                                  style={{
+                                    animationDelay: `${(index * 100 + charIndex) * 0.08}s`,
+                                    display: 'inline-block',
+                                  }}
+                                >
+                                  {char === '\n' ? <br /> : char}
+                                </span>
+                              ))}
+                              {index < sections.length - 1 && <br /><br />}
+                            </>
+                          )}
+                        </div>
+                      )
+                    })
+                  ) : (
+                    // 如果没有 sections，按原来的方式显示
+                    letter.split('').map((char, index) => (
+                      <span
+                        key={index}
+                        className="animate-handwriting"
+                        style={{
+                          animationDelay: `${index * 0.08}s`,
+                          display: 'inline-block',
+                        }}
+                      >
+                        {char === '\n' ? <br /> : char}
+                      </span>
+                    ))
+                  )}
                 </div>
               </div>
             </div>
